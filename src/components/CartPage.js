@@ -9,7 +9,6 @@ const CartPage = () => {
   const [total, setTotal] = useState(0);
   const products = useContext(ProductsContext);
 
-  console.log(hold, "0️⃣0️⃣0️⃣0️⃣0️⃣0️⃣0️⃣0️⃣0️⃣0️⃣0️⃣0️⃣");
 
   const handleAddToCart = (productForAdding) => {
     setIsAnimating(true);
@@ -119,7 +118,7 @@ const CartPage = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row md:flex-row ">
-        <div className="w-[1000px] pr-16">
+        <div className="max-w-[1000px] sm:w-[1000px] pr-16">
           <ul>
             {cart.map((item, index) => (
               <li
