@@ -131,7 +131,7 @@ const CartPage = () => {
                   className="w-24 h-24 md:w-32 md:h-32 object-contain rounded-lg"
                 />
                 <div className="flex-1 md:ml-10 ml-1 text-left">
-                  <div className="flex flex-row justify-between items-center">
+                  <div className="flex flex-row justify-between items-flex-start">
                     <h2 className="text-xl font-semibold mb-2">
                       {item.product.title}
                     </h2>
