@@ -1,12 +1,12 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState } from "react";
 
-export const CartContext = createContext();
+export const CartContext = createContext(); // Create a context for the cart
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
-  const [hold, setHold] = useState(false);
+  const [cart, setCart] = useState([]); // State to hold the cart items
+  const [hold, setHold] = useState(false); // State to control a loading or hold state
 
-
+  // Function to add a product to the cart
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existingProductIndex = prevCart.findIndex(
@@ -25,48 +25,60 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-
+  // Function to remove a product from the cart
   const removeFromCart = (productId) => {
-    setHold(true);
-     setTimeout(() => {
-      setHold(false);
-  }, 1000);
+    setHold(true); // Set hold state to true (could be used for showing a loader)
+    setTimeout(() => {
+      setHold(false); // Reset hold state after 1 second
+    }, 1000);
 
     setCart((prevCart) => {
-      return prevCart.map((item) => {
-        if (item.product.id === productId) {
-          if (item.quantity > 1) {
-            // Decrement the quantity
-            return { ...item, quantity: item.quantity - 1 };
-          } else {
-            // Remove the item from the cart
-            return null;
+      return prevCart
+        .map((item) => {
+          if (item.product.id === productId) {
+            if (item.quantity > 1) {
+              // Decrement the quantity if it's more than 1
+              return { ...item, quantity: item.quantity - 1 };
+            } else {
+              // Remove the item from the cart
+              return null;
+            }
           }
-        }
-        
-        return item;
-      }).filter(item => item !== null); // Filter out null values (removed items)
-      
+
+          return item; // Return the item unchanged if it's not the target product
+        })
+        .filter((item) => item !== null); // Filter out null values (removed items)
     });
   };
 
-
+  // Function to delete a product entirely from the cart
   const deleteFromCart = (productId) => {
-    setHold(true);
+    setHold(true); // Set hold state to true
     setTimeout(() => {
+      // Remove the product from the cart
       setCart((prevCart) =>
         prevCart.filter((item) => item.product.id !== productId)
       );
-      setHold(false);
+      setHold(false); // Reset hold state
     }, 1000);
   };
 
+  // Function to clear all items from the cart
   const deleteAllFormCart = () => {
-      setCart([]);
+    setCart([]); // Clear the cart by setting it to an empty array
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, deleteFromCart, deleteAllFormCart, hold }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        deleteFromCart,
+        deleteAllFormCart,
+        hold,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

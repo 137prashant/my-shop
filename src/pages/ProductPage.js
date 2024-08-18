@@ -4,27 +4,31 @@ import { ProductsContext } from "../context/ProductsContext";
 import { CartContext } from "../context/CartContext";
 
 const ProductPage = () => {
-  const { id } = useParams();
-  const products = useContext(ProductsContext);
-  const { addToCart } = useContext(CartContext);
+  const { id } = useParams(); // Extracting the product ID from the URL parameters
 
+  const products = useContext(ProductsContext); // Accessing the products data from context
+  const { addToCart } = useContext(CartContext); // Accessing the addToCart function from the CartContext
+
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0); // State to manage the selected product image index
+  const [isAnimating, setIsAnimating] = useState(false); // State to handle the animation effect during adding to cart
+
+  // Finding the product that matches the ID from the URL
   const product = products.find((p) => p.id === parseInt(id));
-  
 
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  // Function to handle adding the product to the cart with an animation
 
   const handleAddToCart = () => {
-    setIsAnimating(true);
+    setIsAnimating(true); // Start the animation
 
     setTimeout(() => {
       addToCart(product); // Add product to cart after animation
-      setIsAnimating(false);
+      setIsAnimating(false); // Stop the animation
     }, 1000); // 1 second for the animation duration
   };
 
+  // If the product is not found (e.g., invalid ID), show a message
   if (!product) {
-    return <div>Product not found</div>;
+    return <h1>Product not found</h1>;
   }
 
   return (

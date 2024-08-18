@@ -3,16 +3,17 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 const Product = ({ product }) => {
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext); // Get the addToCart function from the CartContext
 
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false); // State to control the animation effect when adding a product to the cart
 
+  // Function to handle adding a product to the cart
   const handleAddToCart = () => {
-    setIsAnimating(true);
+    setIsAnimating(true); // Start the animation
 
     setTimeout(() => {
-      addToCart(product); // Add product to cart after animation
-      setIsAnimating(false);
+      addToCart(product); // Add the product to the cart after the animation duration
+      setIsAnimating(false); // Stop the animation after adding to the cart
     }, 1000); // 1 second for the animation duration
   };
 
@@ -22,7 +23,7 @@ const Product = ({ product }) => {
         <img
           src={product.images[0]}
           alt={product.title}
-            className="w-full h-48 object-contain mb-2"
+          className="w-full h-48 object-contain mb-2"
         />
         <h2 className="text-lg font-semibold truncate ">{product.title}</h2>
       </Link>
@@ -40,7 +41,7 @@ const Product = ({ product }) => {
         ))}
       </div>
       <p className="text-700 text-[22px] mb-2 mt-2">
-        ${(product.price - (product.price * 0.1)).toFixed(2)}
+        ${(product.price - product.price * 0.1).toFixed(2)}
         <span className="text-sm text-[18px] text-[#ed1111] ml-2 line-through ">
           ${product.price}
         </span>

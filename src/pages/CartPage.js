@@ -4,30 +4,33 @@ import { ProductsContext } from "../context/ProductsContext";
 import { Link } from "react-router-dom";
 
 const CartPage = () => {
-  const { cart, removeFromCart, addToCart, hold, deleteFromCart } = useContext(CartContext);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [total, setTotal] = useState(0);
+  const { cart, removeFromCart, addToCart, hold, deleteFromCart } =
+    useContext(CartContext);
   const products = useContext(ProductsContext);
 
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [total, setTotal] = useState(0);
 
   const handleAddToCart = (productForAdding) => {
-    setIsAnimating(true);
+    setIsAnimating(true); // Start animation when the product is being added to the cart
 
     setTimeout(() => {
+      // Find the product in the products array by matching the ID
       const product = products.find((p) => p.id === productForAdding);
 
       addToCart(product); // Add product to cart after animation
-      setIsAnimating(false);
+      setIsAnimating(false); // Stop the animation after the product is added
     }, 1000); // 1 second for the animation duration
   };
 
+  // Effect to calculate the total price of items in the cart whenever the cart is updated
   useEffect(() => {
     const totalPrice = cart.reduce(
       (total, item) => total + item.product.price * item.quantity,
       0
     );
-    setTotal(totalPrice);
-  }, [cart]);
+    setTotal(totalPrice); // Update the total price in state
+  }, [cart]); // Re-run this effect whenever the cart array changes
 
   if (cart.length === 0) {
     return (
@@ -137,7 +140,7 @@ const CartPage = () => {
                     </h2>
                     <svg
                       onClick={() => deleteFromCart(item.product.id)}
-                    className="cursor-pointer"
+                      className="cursor-pointer"
                       fill="#1f2937"
                       width="27px"
                       height="27px"
@@ -240,7 +243,10 @@ const CartPage = () => {
             <div className="font-bold text-lg">${(total * 0.9).toFixed(2)}</div>
           </div>
           <div className="mt-6 flex justify-center">
-            <Link to="/checkout" className="bg-green-500 text-center text-white px-6 py-3 rounded-lg hover:bg-green-600 w-full">
+            <Link
+              to="/checkout"
+              className="bg-green-500 text-center text-white px-6 py-3 rounded-lg hover:bg-green-600 w-full"
+            >
               Proceed to Checkout
             </Link>
           </div>

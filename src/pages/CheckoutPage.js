@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 const CheckoutPage = () => {
-  const { deleteAllFormCart } = useContext(CartContext);
+  const { deleteAllFormCart } = useContext(CartContext); // Accessing the function to clear the cart after the order is placed
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
