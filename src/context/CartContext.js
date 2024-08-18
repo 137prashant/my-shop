@@ -25,27 +25,13 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // const removeFromCart = (productId) => {
-  //   setCart((prevCart) => {
-  //     const existingProductIndex = prevCart.findIndex(
-  //       (item) => item.product.id === productId
-  //     );
-  //     if (existingProductIndex !== -1) {
-  //       const updatedCart = [...prevCart];
-  //       if (updatedCart[existingProductIndex].quantity > 1) {
-  //         updatedCart[existingProductIndex].quantity -= 1;
-  //       } else {
-  //         updatedCart.splice(existingProductIndex, 1);
-  //       }
-  //       return updatedCart;
-  //     }
-  //     return prevCart;
-  //   });
-  // };
 
   const removeFromCart = (productId) => {
     setHold(true);
      setTimeout(() => {
+      setHold(false);
+  }, 1000);
+
     setCart((prevCart) => {
       return prevCart.map((item) => {
         if (item.product.id === productId) {
@@ -57,12 +43,11 @@ export const CartProvider = ({ children }) => {
             return null;
           }
         }
-        setHold(false);
+        
         return item;
       }).filter(item => item !== null); // Filter out null values (removed items)
       
     });
-  }, 1000);
   };
 
 

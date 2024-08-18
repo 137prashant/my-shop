@@ -1,10 +1,10 @@
 import Header from "./components/Header";
-import Products from "./components/Products";
+import Products from "./pages/Products";
 import Footer from "./components/Footer";
-import ProductPage from "./components/ProductPage";
-import CartPage from "./components/CartPage";
-import AboutPage from "./components/AboutPage";
-import CheckoutPage from "./components/CheckoutPage";
+import ProductPage from "./pages/ProductPage";
+import CartPage from "./pages/CartPage";
+import AboutPage from "./pages/AboutPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 import { ProductsProvider } from "./context/ProductsContext";
 import { CartProvider } from "./context/CartContext";
